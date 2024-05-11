@@ -30,8 +30,9 @@ class FakeExtensionBuilder implements ExtensionBuilder {
 
 class FakeExtension implements ScriptingExtension, VisualizerExtension {
   @override
-  Command? buildCommand(String rawCommand) {
-    if(rawCommand != "fake-command") return null;
+  Command? buildCommand(RawCommand rawCommand) {
+
+    if(rawCommand.name != FakeCommand.commandDefinition.name) return null;
 
     _logger.trace(() => "Building fake command");
     return FakeCommand.build();
@@ -41,7 +42,7 @@ class FakeExtension implements ScriptingExtension, VisualizerExtension {
   List<CommandDefinition> getAllCommandDefinitions() {
     _logger.trace(() => "Getting fake extension command definitions");
     return [
-      CommandDefinition(_extensionId, "fake-command", [])
+      FakeCommand.commandDefinition
     ];
   }
 
@@ -76,6 +77,7 @@ class FakeExtension implements ScriptingExtension, VisualizerExtension {
 }
 
 class FakeCommand extends ModelBuilderCommand {
+  static final commandDefinition = CommandDefinition(_extensionId, "fake-command", []);
 
   FakeCommand.build();
 
