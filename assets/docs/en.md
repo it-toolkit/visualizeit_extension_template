@@ -10,7 +10,7 @@ This command shows a simple banner widget with a fixed text.
 
 #### Usage example
 
-```
+```yaml
 name: "..."
 description: "..."
 tags: ["..."]
