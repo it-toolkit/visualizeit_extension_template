@@ -9,7 +9,7 @@ import 'package:visualizeit_extensions/extension.dart';
 
 final _logger = Logger("extension.fake");
 
-const _extensionId = "fake-extension";
+const _extensionId = "fake_extension";
 
 class FakeExtensionBuilder implements ExtensionBuilder {
   static const _docsLocationPath = "packages/visualizeit_extension_template/assets/docs";

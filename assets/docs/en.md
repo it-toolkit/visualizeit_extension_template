@@ -19,7 +19,7 @@ description: "..."
 tags: ["..."]
 scenes:
   - name: "..."
-    extensions: ['fake-extension']
+    extensions: ['fake_extension']
     description: "..."
     initial-state:
       - ...
