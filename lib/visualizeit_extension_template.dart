@@ -28,23 +28,11 @@ class FakeExtensionBuilder implements ExtensionBuilder {
   }
 }
 
-class FakeExtension implements ScriptingExtension, VisualizerExtension {
-  @override
-  Command? buildCommand(RawCommand rawCommand) {
+class FakeExtension extends DefaultScriptingExtension implements VisualizerExtension {
 
-    if(rawCommand.name != FakeCommand.commandDefinition.name) return null;
-
-    _logger.trace(() => "Building fake command");
-    return FakeCommand.build();
-  }
-
-  @override
-  List<CommandDefinition> getAllCommandDefinitions() {
-    _logger.trace(() => "Getting fake extension command definitions");
-    return [
-      FakeCommand.commandDefinition
-    ];
-  }
+  FakeExtension() : super({
+    FakeCommand.commandDefinition: FakeCommand.build,
+  });
 
   @override
   Widget? render(Model model, BuildContext context) {
@@ -79,7 +67,7 @@ class FakeExtension implements ScriptingExtension, VisualizerExtension {
 class FakeCommand extends ModelBuilderCommand {
   static final commandDefinition = CommandDefinition(_extensionId, "fake-command", []);
 
-  FakeCommand.build();
+  FakeCommand.build(RawCommand rawCommand);
 
   @override
   Model call(CommandContext context) {
