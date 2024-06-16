@@ -4,12 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:visualizeit_extensions/common.dart';
 import 'package:visualizeit_extensions/logging.dart';
 import 'package:visualizeit_extensions/scripting.dart';
-import 'package:visualizeit_extensions/visualizer.dart';
 import 'package:visualizeit_extensions/extension.dart';
 
 final _logger = Logger("extension.fake");
 
-const _extensionId = "fake_extension";
+final class FakeExtension extends Extension {
+  static const extensionId = "fake_extension";
+
+  FakeExtension._create({required super.markdownDocs, required super.extensionCore}) : super.create(id: extensionId);
+}
 
 class FakeExtensionBuilder implements ExtensionBuilder {
   static const _docsLocationPath = "packages/visualizeit_extension_template/assets/docs";
@@ -18,19 +21,18 @@ class FakeExtensionBuilder implements ExtensionBuilder {
   @override
   Future<Extension> build() async{
     _logger.trace(() => "Building fake extension");
-    var fakeExtension = FakeExtension();
 
     final markdownDocs = {
       for (final languageCode in _availableDocsLanguages) languageCode : '$_docsLocationPath/$languageCode.md'
     };
 
-    return Extension(_extensionId, fakeExtension, fakeExtension, markdownDocs);
+    return FakeExtension._create(markdownDocs: markdownDocs, extensionCore: FakeExtensionCore());
   }
 }
 
-class FakeExtension extends DefaultScriptingExtension implements VisualizerExtension {
+class FakeExtensionCore extends SimpleExtensionCore {
 
-  FakeExtension() : super({
+  FakeExtensionCore() : super({
     FakeCommand.commandDefinition: FakeCommand.build,
   });
 
@@ -65,7 +67,7 @@ class FakeExtension extends DefaultScriptingExtension implements VisualizerExten
 }
 
 class FakeCommand extends ModelBuilderCommand {
-  static final commandDefinition = CommandDefinition(_extensionId, "fake-command", []);
+  static final commandDefinition = CommandDefinition(FakeExtension.extensionId, "fake-command", []);
 
   FakeCommand.build(RawCommand rawCommand);
 
@@ -79,7 +81,7 @@ class FakeCommand extends ModelBuilderCommand {
 class FakeModel extends Model {
   final text = "Fake model text";
 
-  FakeModel(): super(_extensionId, "fake_model");
+  FakeModel(): super(FakeExtension.extensionId, "fake_model");
 
   @override
   Model clone() {
