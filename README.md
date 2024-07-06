@@ -1,39 +1,21 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Visualize IT Extension Template
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
+This documentation explains how to implement a new extension for VisualizeIT, using the FakeExtension
+class as an example
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
+## The Extension
+First and foremost, you must define your extension class that inherits from the class **Extension**.
+It must have defined an * *extensionId* * that'll be used to identify it among other extensions and will be used to be referenced in a script.
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+You must also define a constructor for your Extension. This constructor will receive the docs to be shown as an extension description in **Visualize IT** and an object of a class that extends **Extension Core** (see section XXX)
 
-## Features
+https://github.com/it-toolkit/visualizeit_extension_template/blob/fb26dd1979bb721ebef88f1086e0096692e01ac2/lib/visualizeit_extension_template.dart#L11-L15
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+### Define a Builder
+You must implement a builder for your extension. The * *build* * method of this builder will be called when **Visualize IT** starts. 
+In this method you should create the extension and pass: 
+* a map with the language code of your documentation (i.e. * * LanguageCodes.en* *) as key and the relative location of the document in your extension as value
+* the extension core of your Extension (see section XXX)
 
-## Getting started
+https://github.com/it-toolkit/visualizeit_extension_template/blob/fb26dd1979bb721ebef88f1086e0096692e01ac2/lib/visualizeit_extension_template.dart#L17-L31
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
-```
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
