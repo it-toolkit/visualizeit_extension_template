@@ -40,7 +40,8 @@ When **Visualize IT** is playing a script it will invoke the *call* method of a 
 ```dart
 @override
 Result call(Model model, CommandContext context) {
-  ExternalSortModel externalSortModel = (model.clone()) as ExternalSortModel;
+  //The received model is a clone (created using implemented Model.clone()) of the latest available model state
+  ExternalSortModel externalSortModel = model as ExternalSortModel;
   int pendingFrames;
   Model? resultModel;
 
